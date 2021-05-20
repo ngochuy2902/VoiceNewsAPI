@@ -59,21 +59,10 @@ public class SecurityConfig
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.requiresChannel()
-            .anyRequest()
-            .requiresSecure();
-
         http.authorizeRequests()
-            .antMatchers("/api/*/auth/**",
-                         "/api/auth/logout",
-                         "/api/register/**",
-                         "/api-docs",
-                         "/configuration/ui",
-                         "/swagger-resources/**",
-                         "/configuration/security",
-                         "/swagger-ui.html",
-                         "/webjars/**").permitAll()
-            .antMatchers("/api/user/**", "/api/profiles").hasAuthority(RoleType.ROLE_USER.name());
+            .antMatchers("/api/auth/**", "/api/common/**").permitAll()
+            .antMatchers("/api/user/**").authenticated()
+            .antMatchers("/api/admin/**").hasAuthority(RoleType.ROLE_ADMIN.name());
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }

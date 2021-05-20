@@ -22,21 +22,29 @@ public class UserRoleService {
     @Transactional
     public void deleteOldAndSaveNew(final Long userId, List<Long> roleIds) {
         log.info("Delete old accountRole then save for accountId #{} and list roleIds #{}", userId, roleIds);
-        List<UserRole> oldAccountRoles = userRoleRepository.findByUserId(userId);
+        List<UserRole> oldAccountRoles = userRoleRepository.findAllByUserId(userId);
         userRoleRepository.deleteAll(oldAccountRoles);
 
-        saveNew(userId, roleIds);
+        saveNewUserRoles(userId, roleIds);
     }
 
     @Transactional
-    public void saveNew(final Long userId, List<Long> roleIds) {
+    public void saveNewUserRoles(final Long userId, List<Long> roleIds) {
         log.info("Save for userId #{} and list roleIds #{}", userId, roleIds);
         List<UserRole> userRoles = roleIds.stream()
-                                                .map(roleId -> UserRole.builder()
-                                                                          .userId(userId)
-                                                                          .roleId(roleId).build())
-                                                .collect(Collectors.toList());
+                                          .map(roleId -> UserRole.builder()
+                                                                 .userId(userId)
+                                                                 .roleId(roleId)
+                                                                 .build())
+                                          .collect(Collectors.toList());
         userRoleRepository.saveAll(userRoles);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserRole> fetchByUserId(final Long userId) {
+        log.info("Fetch user roles by user id #{}", userId);
+
+        return userRoleRepository.findAllByUserId(userId);
     }
 }
 

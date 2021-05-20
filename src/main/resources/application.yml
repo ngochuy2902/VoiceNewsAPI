@@ -3,6 +3,11 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/scraper-news
     username: root
     password: r00t
+  data:
+    mongodb:
+      uri: mongodb://huyhn:775748@localhost:27017
+      database: scraper-news
+
 
   jpa:
     hibernate:
@@ -10,3 +15,13 @@ spring:
     open-in-view: false
     properties:
       hibernate.jdbc.batch_size: 50
+server:
+  port: 8080
+application:
+  jwt:
+    secret-key: voicenewsvoicenewsvoicenewsvoicenewsvoicenews
+    issuer: voicenews.com
+    expiration: 86400000
+    refresh-expiration: 864000000
+  cors:
+    allowed-origin: http://localhost:3000

@@ -27,17 +27,10 @@ public class RoleService {
     }
 
     @Transactional(readOnly = true)
-    public Role getRoleByRoleType(final RoleType roleType) {
-        log.info("Get role by type #{}", roleType.name());
+    public Role findRoleByRoleType(final RoleType roleType) {
+        log.info("Find role by type #{}", roleType.name());
 
         return roleRepository.findByRoleType(roleType)
                              .orElseThrow(() -> new ObjectNotFoundException("role"));
-    }
-
-    @Transactional(readOnly = true)
-    public List<Role> fetchByUserId(final Long userId) {
-        log.info("Fetch roles by user id #{}", userId);
-
-        return roleRepository.fetchByUserId(userId);
     }
 }

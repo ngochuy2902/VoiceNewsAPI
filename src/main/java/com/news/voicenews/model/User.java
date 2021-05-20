@@ -32,13 +32,12 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(name = "username")
     private String username;
 
-    @NotNull
+    @Column(name = "password")
     private String password;
 
-    @NotNull
     @Column(name = "year_of_birth")
     private Integer yearOfBirth;
 }

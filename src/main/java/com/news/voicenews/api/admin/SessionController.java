@@ -1,4 +1,4 @@
-package com.news.voicenews.api;
+package com.news.voicenews.api.admin;
 
 import com.news.voicenews.bloc.SessionBloc;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/sessions")
+@RequestMapping("/api/admin")
 public class SessionController {
 
     private final SessionBloc sessionBloc;
@@ -16,7 +16,7 @@ public class SessionController {
         this.sessionBloc = sessionBloc;
     }
 
-    @GetMapping
+    @GetMapping("/session")
     public ResponseEntity<?> fetchAllSessions() {
         return ResponseEntity.ok(sessionBloc.fetchAllSessions());
     }

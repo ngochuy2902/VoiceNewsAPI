@@ -1,5 +1,6 @@
 package com.news.voicenews.dto.req;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,8 +25,10 @@ public class RegisterReq {
     private String password;
 
     @NotNull
+    @JsonProperty("year_of_birth")
     private Integer yearOfBirth;
 
     @NotNull
-    private List<Long> categories;
+    @JsonProperty("category_ids")
+    private List<Long> categoryIds;
 }

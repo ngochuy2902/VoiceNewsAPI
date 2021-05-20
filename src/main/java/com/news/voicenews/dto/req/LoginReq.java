@@ -20,7 +20,4 @@ public class LoginReq {
 
     @NotNull
     private String password;
-
-    @NotNull
-    private boolean rememberMe = true;
 }

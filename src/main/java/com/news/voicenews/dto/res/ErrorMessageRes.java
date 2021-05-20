@@ -1,7 +1,6 @@
 package com.news.voicenews.dto.res;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,9 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TokenRes {
-
-    private String accessToken;
-
-    private String refreshToken;
+public class ErrorMessageRes {
+    private String message;
+    private String error;
+    private String fieldName;
 }

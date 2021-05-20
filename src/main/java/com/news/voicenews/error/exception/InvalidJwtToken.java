@@ -6,4 +6,5 @@ public class InvalidJwtToken
     public InvalidJwtToken() {
         super("Invalid jwt token", "access_token");
     }
+
 }

@@ -35,5 +35,6 @@ public class Session
     @Column(name = "finished_time")
     private Instant finishedTime;
 
-    private boolean completed;
+    @Column(name = "completed")
+    private Boolean completed;
 }

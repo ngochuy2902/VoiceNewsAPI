@@ -8,15 +8,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TokenRes {
+public class ArticleRes {
 
-    private String accessToken;
+    private Long id;
+    private String url;
+    private String domain;
+    private String title;
+    private String category;
+    private Instant time;
+    private String content;
 
-    private String refreshToken;
+    @JsonProperty("audio_path")
+    private String audioPath;
 }
