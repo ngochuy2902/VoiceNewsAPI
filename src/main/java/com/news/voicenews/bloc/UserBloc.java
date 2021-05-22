@@ -22,13 +22,11 @@ import java.util.stream.Collectors;
 public class UserBloc {
 
     private final UserService userService;
-    private final UserRoleService userRoleService;
     private final RoleService roleService;
     private final CategoryService categoryService;
 
-    public UserBloc(final UserService userService, final UserRoleService userRoleService, final RoleService roleService, final CategoryService categoryService) {
+    public UserBloc(final UserService userService, final RoleService roleService, final CategoryService categoryService) {
         this.userService = userService;
-        this.userRoleService = userRoleService;
         this.roleService = roleService;
         this.categoryService = categoryService;
     }
@@ -40,7 +38,6 @@ public class UserBloc {
         User user = userService.getByUserId(userId);
 
         UserRes userRes = UserMapper.INSTANCE.toUserRes(user);
-//        UserRes userRes = new UserRes();
         List<Role> roles = roleService.fetchRolesByUserId(userId);
         List<String> roleTypes = roles.stream()
                                       .map(role -> role.getRoleType().toString())
