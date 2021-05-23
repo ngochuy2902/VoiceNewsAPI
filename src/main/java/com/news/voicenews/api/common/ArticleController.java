@@ -23,7 +23,12 @@ public class ArticleController {
     }
 
     @GetMapping("/article")
-    public ResponseEntity<?> fetchArticles() {
+    public ResponseEntity<?> fetchArticlesRanked() {
         return ResponseEntity.ok(articleBloc.fetchArticlesNoLogin());
+    }
+
+    @GetMapping("article/name/{categoryName}")
+    public ResponseEntity<?> fetchArticlesByCategoryName(@PathVariable final String categoryName) {
+        return ResponseEntity.ok(articleBloc.fetchArticlesByCategoryName(categoryName));
     }
 }

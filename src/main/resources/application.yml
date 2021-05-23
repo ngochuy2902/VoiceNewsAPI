@@ -24,4 +24,4 @@ application:
     expiration: 86400000
     refresh-expiration: 864000000
   cors:
-    allowed-origin: http://localhost:3000
+    allowed-origin: http://localhost:3000, http://192.168.1.6:3000

@@ -26,7 +26,7 @@ public class VoiceNewsApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/api/**").allowedOrigins("http://localhost:3000", "http://192.168.1.6:3000");
             }
         };
     }

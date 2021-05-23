@@ -14,6 +14,7 @@ public interface ScoreRepository
     @Query(value = "SELECT * FROM scores"
             + " WHERE session_id = :sessionId"
             + " AND category = :category"
+            + " AND score > 0"
             + " ORDER BY score DESC"
             + " LIMIT :limit", nativeQuery = true)
     List<Score> findScoresBySessionIdAndCategoryWithLimit(@Param("sessionId") Long sessionId,

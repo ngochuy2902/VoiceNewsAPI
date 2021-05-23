@@ -27,7 +27,10 @@ public class RegisterBloc {
 
     private final static RoleType DEFAULT_ACCOUNT_ROLE = RoleType.ROLE_USER;
 
-    public RegisterBloc(final UserService userService, final RoleService roleService, UserRoleService userRoleService, final UserCategoryService userCategoryService) {
+    public RegisterBloc(final UserService userService,
+                        final RoleService roleService,
+                        final UserRoleService userRoleService,
+                        final UserCategoryService userCategoryService) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
