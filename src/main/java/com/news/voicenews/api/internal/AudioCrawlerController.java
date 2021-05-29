@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.HttpStatus.OK;
-
 @RestController
 @RequestMapping("/api/internal/crawler")
 public class AudioCrawlerController {
@@ -24,6 +22,7 @@ public class AudioCrawlerController {
 
     @PostMapping("/audio")
     public ResponseEntity<?> updateNewsCrawlerStatus(@RequestBody @Valid final FromAudioCrawlerReq fromAudioCrawlerReq) {
-        return new ResponseEntity<>(crawlerBloc.updateAudioPathFromAudioCrawler(fromAudioCrawlerReq), OK);
+        crawlerBloc.updateAudioPathFromAudioCrawler(fromAudioCrawlerReq);
+        return ResponseEntity.noContent().build();
     }
 }

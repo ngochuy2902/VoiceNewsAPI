@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.HttpStatus.OK;
-
 @RestController
 @RequestMapping("/api/internal")
 public class RankerController {
@@ -25,6 +23,7 @@ public class RankerController {
     @PostMapping("/ranker")
     public ResponseEntity<?> updateRankerStatus(@RequestBody @Valid final NewsCrawlerReq newsCrawlerReq)
             throws InterruptedException {
-        return new ResponseEntity<>(crawlerBloc.updateStatusFromRanker(newsCrawlerReq), OK);
+        crawlerBloc.updateStatusFromRanker(newsCrawlerReq);
+        return ResponseEntity.noContent().build();
     }
 }

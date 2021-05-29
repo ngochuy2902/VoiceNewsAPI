@@ -25,10 +25,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final RegisterBloc registerBloc;
 
-    public AuthController(final JwtBloc jwtBloc, final AuthenticationManager authenticationManager, final RegisterBloc registerBloc) {
+    public AuthController(final JwtBloc jwtBloc,
+                          final AuthenticationManager authenticationManager,
+                          final RegisterBloc registerBloc) {
         this.jwtBloc = jwtBloc;
         this.authenticationManager = authenticationManager;
-
         this.registerBloc = registerBloc;
     }
 
@@ -60,6 +61,4 @@ public class AuthController {
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-
-
 }

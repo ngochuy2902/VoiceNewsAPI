@@ -168,6 +168,7 @@ public class CrawlerBloc {
         log.info("Session is finished #{}", session);
     }
 
+    @Transactional
     public List<Score> getScoresShouldBeCrawlAudio(Session session) {
         log.info("Get scores should be crawl audio");
 

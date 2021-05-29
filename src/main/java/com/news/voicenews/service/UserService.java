@@ -4,11 +4,11 @@ import com.news.voicenews.error.exception.ValidatorException;
 import com.news.voicenews.model.User;
 import com.news.voicenews.respository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.apache.commons.lang3.ObjectUtils;
 
 @Slf4j
 @Service
@@ -49,6 +49,13 @@ public class UserService {
 
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void save(final User user) {
+        log.info("Update user by user id #{}", user.getId());
 
         userRepository.save(user);
     }

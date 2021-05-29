@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.HttpStatus.OK;
-
 @RestController
 @RequestMapping("/api/internal/crawler")
 public class NewsCrawlerController {
@@ -24,6 +22,7 @@ public class NewsCrawlerController {
 
     @PostMapping("/news")
     public ResponseEntity<?> updateNewsCrawlerStatus(@RequestBody @Valid final NewsCrawlerReq newsCrawlerReq) {
-        return new ResponseEntity<>(crawlerBloc.updateStatusFromNewsCrawler(newsCrawlerReq), OK);
+        crawlerBloc.updateStatusFromNewsCrawler(newsCrawlerReq);
+        return ResponseEntity.noContent().build();
     }
 }

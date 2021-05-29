@@ -63,21 +63,12 @@ public class JwtBloc {
 
         Date expiration = new Date(System.currentTimeMillis()
                                            + jwtConfigProperties.getExpiration());
-        Date refreshExpiration = new Date(System.currentTimeMillis()
-                                                  + jwtConfigProperties.getRefreshExpiration());
         String accessToken = jwtBuilder.addClaims(claims)
                                        .setExpiration(expiration)
                                        .signWith(SignatureAlgorithm.HS512,
                                                  jwtConfigProperties.getSecretKey())
                                        .compact();
-
-        // TODO: Generate refresh token then store it into Redis
-        String refreshToken = jwtBuilder.setExpiration(refreshExpiration)
-                                        .signWith(SignatureAlgorithm.HS512, jwtConfigProperties
-                                                .getSecretKey())
-                                        .compact();
-
-        return new TokenRes(accessToken, refreshToken);
+        return new TokenRes(accessToken);
     }
 
     @Transactional(readOnly = true)

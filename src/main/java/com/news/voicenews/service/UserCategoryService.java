@@ -1,7 +1,6 @@
 package com.news.voicenews.service;
 
 import com.news.voicenews.model.UserCategory;
-import com.news.voicenews.model.UserRole;
 import com.news.voicenews.respository.UserCategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,8 @@ public class UserCategoryService {
 
     @Transactional
     public void saveNewUserCategories(Long userId, List<Long> categoryIds) {
-        log.info("Save for userId #{} and list roleIds #{}", userId, categoryIds);
+        log.info("Save for userId #{} and list categoryIds #{}", userId, categoryIds);
+        userCategoryRepository.deleteAllByUserId(userId);
         List<UserCategory> userCategories = categoryIds.stream()
                                                        .map(categoryId -> UserCategory.builder()
                                                                                       .userId(userId)
@@ -30,11 +30,5 @@ public class UserCategoryService {
                                                                                       .build())
                                                        .collect(Collectors.toList());
         userCategoryRepository.saveAll(userCategories);
-    }
-
-    public List<UserCategory> findAllByUserId(Long userId) {
-        log.info("Find user category by user id #{}", userId);
-
-        return userCategoryRepository.findAllByUserId(userId);
     }
 }

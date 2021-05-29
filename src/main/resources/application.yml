@@ -21,7 +21,6 @@ application:
   jwt:
     secret-key: voicenewsvoicenewsvoicenewsvoicenewsvoicenews
     issuer: voicenews.com
-    expiration: 86400000
-    refresh-expiration: 864000000
+    expiration: 8640000
   cors:
     allowed-origin: http://localhost:3000, http://192.168.1.6:3000

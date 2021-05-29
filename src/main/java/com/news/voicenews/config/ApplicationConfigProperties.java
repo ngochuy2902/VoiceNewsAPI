@@ -22,7 +22,6 @@ public class ApplicationConfigProperties {
         private String secretKey;
         private String issuer;
         private Long expiration;
-        private Long refreshExpiration;
     }
 
     @Getter
