@@ -31,6 +31,34 @@ public class ScoreService {
         log.info("Find score by id #{}", id);
 
         return scoreRepository.findById(id)
-                              .orElseThrow(() -> new ObjectNotFoundException("article"));
+                              .orElseThrow(() -> new ObjectNotFoundException("score"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Score> findByAllArticleId(final String articlesId) {
+        log.info("Find all by article id #{}", articlesId);
+
+        return scoreRepository.findAllByArticleId(articlesId);
+    }
+
+    @Transactional(readOnly = true)
+    public Score findByArticleIdAndAudioPathNotNull(final String articleId) {
+        log.info("Find by article id #{} and audio not null", articleId);
+
+        return scoreRepository.findByArticleIdAndAudioPathNotNull(articleId);
+    }
+
+    @Transactional
+    public void updateAudioPathByOldScorePath(final Score score, final String oldScoreAudioPath) {
+        log.info("Update audio path by old score audio path #{}", oldScoreAudioPath);
+
+        score.setAudioPath(oldScoreAudioPath);
+        scoreRepository.save(score);
+    }
+
+    public void updateAudioPathFromAudioCrawler(final List<Score> scores) {
+        log.info("Update audio path from audio crawler for scores #{}", scores);
+
+        scoreRepository.saveAll(scores);
     }
 }

@@ -19,6 +19,10 @@ import java.time.Instant;
 public class ArticleRes {
 
     private Long id;
+
+    @JsonProperty("article_id")
+    private String articleId;
+
     private String url;
     private String domain;
     private String title;

@@ -10,7 +10,6 @@ import com.news.voicenews.service.ArticleService;
 import com.news.voicenews.service.CategoryService;
 import com.news.voicenews.service.ScoreService;
 import com.news.voicenews.service.SessionService;
-import com.news.voicenews.service.UserCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,8 +61,9 @@ public class ArticleBloc {
     public List<ArticleRes> fetchArticlesNoLogin() {
         log.info("Fetch articles no login");
 
+        Long sessionId = sessionService.findValidSessionId();
         List<Category> categories = categoryService.fetchAllCategories();
-        return getArticleRes(categories);
+        return getArticleRes(categories, sessionId);
     }
 
     @Transactional(readOnly = true)
@@ -71,24 +71,25 @@ public class ArticleBloc {
         log.info("Fetch articles by current user");
 
         Long currentUserId = SecurityHelper.getUserId();
+        Long sessionId = sessionService.findValidSessionId();
 
         List<Category> categories = categoryService.findAllByUserId(currentUserId);
-        return getArticleRes(categories);
+        return getArticleRes(categories, sessionId);
     }
 
     @Transactional(readOnly = true)
     public List<ArticleRes> fetchArticlesByCategoryName(final String categoryName) {
         log.info("Fetch articles by category name #{}", categoryName);
+
+        Long sessionId = sessionService.findValidSessionId();
         List<Category> categories = Collections.singletonList(categoryService.findByName(categoryName));
-        return getArticleRes(categories);
+        return getArticleRes(categories, sessionId);
     }
 
-    private List<ArticleRes> getArticleRes(final List<Category> categories) {
+    public List<ArticleRes> getArticleRes(final List<Category> categories, Long sessionId) {
         List<String> categoryNames = categories.stream()
                                                .map(Category::getName)
                                                .collect(Collectors.toList());
-
-        Long sessionId = sessionService.findValidSessionId();
 
         List<Integer> numberOfArticlesPerCategory = getNumberOfArticlesPerCategory(NumberOfArticles.NUMBER_OF_ARTICLES,
                                                                                    categories.size());
@@ -107,6 +108,7 @@ public class ArticleBloc {
                                  .fetchArticleById(score.getArticleId());
                          return ArticleRes.builder()
                                           .id(score.getId())
+                                          .articleId(articleMongo.getUuid())
                                           .url(score.getUrl())
                                           .domain(score.getDomain())
                                           .title(articleMongo.getTitle())

@@ -23,7 +23,9 @@ import java.io.IOException;
 public class ExceptionHandlerFilter
         extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request,
+                                    final HttpServletResponse response,
+                                    final FilterChain filterChain)
             throws IOException {
         response.setContentType("application/json");
         long startTime = System.currentTimeMillis();
@@ -43,7 +45,7 @@ public class ExceptionHandlerFilter
         }
         long endTime = System.currentTimeMillis();
 
-        log.info("Time to handle request with url #{} is in #{}", request.getPathInfo(), endTime - startTime);
+        log.info("Time to handle request with url #{} is in #{}", request.getRequestURI(), endTime - startTime);
     }
 
     private void responseError(final String message,

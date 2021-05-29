@@ -22,4 +22,12 @@ public interface ScoreRepository
                                                           @Param("limit") Integer limit);
 
     Optional<Score> findById(Long id);
+
+    List<Score> findAllByArticleId(String articleId);
+
+    @Query(value = "SELECT * FROM scores"
+            + " WHERE article_id = :articleId"
+            + " AND audio_path IS NOT NULL"
+            + " LIMIT 1", nativeQuery = true)
+    Score findByArticleIdAndAudioPathNotNull(@Param("articleId") String articleId);
 }

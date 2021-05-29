@@ -60,7 +60,7 @@ public class SecurityConfig
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-            .antMatchers("/api/auth/**", "/api/common/**").permitAll()
+            .antMatchers("/api/auth/**", "/api/common/**", "/api/internal/**").permitAll()
             .antMatchers("/api/user/**").authenticated()
             .antMatchers("/api/admin/**").hasAuthority(RoleType.ROLE_ADMIN.name());
 
