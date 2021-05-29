@@ -25,7 +25,7 @@ public class SessionService {
     @Transactional(readOnly = true)
     public List<Session> fetchAllSessions() {
         log.info("Fetch all sessions");
-        return sessionRepository.findAll();
+        return sessionRepository.findAllByOrderByIdDesc();
     }
 
     @Transactional(readOnly = true)

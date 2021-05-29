@@ -19,5 +19,5 @@ public interface SessionRepository
             + " WHERE s.status = :statusFinished")
     Optional<Long> findValidSessionId(@Param("statusFinished") CrawlerStatus statusFinished);
 
-    List<Session> findAll();
+    List<Session> findAllByOrderByIdDesc();
 }
