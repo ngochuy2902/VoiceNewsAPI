@@ -80,7 +80,7 @@ public class CrawlerBloc {
     }
 
     @Transactional
-    public Long updateStatusFromNewsCrawler(NewsCrawlerReq newsCrawlerReq) {
+    public void updateStatusFromNewsCrawler(NewsCrawlerReq newsCrawlerReq) {
         log.info("Update status from new crawler #{}", newsCrawlerReq);
 
         Session session = sessionService.findById(newsCrawlerReq.getSessionId());
@@ -93,11 +93,11 @@ public class CrawlerBloc {
             session.setStatus(FAILED);
         }
         sessionService.save(session);
-        return newsCrawlerReq.getSessionId();
     }
 
+    @Async
     @Transactional
-    public Long updateStatusFromRanker(NewsCrawlerReq newsCrawlerReq)
+    public void updateStatusFromRanker(NewsCrawlerReq newsCrawlerReq)
             throws InterruptedException {
         log.info("Update status from ranker with news crawler #{}", newsCrawlerReq);
 
@@ -105,14 +105,12 @@ public class CrawlerBloc {
 
         if (newsCrawlerReq.getStatus() == RANKER_SUCCESS) {
             session.setStatus(IN_CRAWLING_AUDIO_PROGRESS);
-            sessionService.save(session);
             publishSessionToAudioCrawler(session);
         } else if (newsCrawlerReq.getStatus() == RANKER_FAILED){
             log.info("Rank failed with session id #{}", newsCrawlerReq.getSessionId());
             session.setStatus(FAILED);
-            sessionService.save(session);
         }
-        return newsCrawlerReq.getSessionId();
+        sessionService.save(session);
     }
 
     @Transactional

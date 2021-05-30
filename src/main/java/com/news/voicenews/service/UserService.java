@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class UserService {
@@ -63,5 +65,12 @@ public class UserService {
     private void validateAccountBeforeSaveNew(final User user) {
         if(ObjectUtils.isNotEmpty(user.getId()))
             throw new ValidatorException("Invalid user id", user.getId().toString());
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAll() {
+        log.info("Fetch all users");
+
+        return userRepository.findAll();
     }
 }

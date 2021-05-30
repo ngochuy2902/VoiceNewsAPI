@@ -31,7 +31,11 @@ public class UserBloc {
     private final UserCategoryService userCategoryService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserBloc(final UserService userService, final RoleService roleService, final CategoryService categoryService, final UserCategoryService userCategoryService, final PasswordEncoder passwordEncoder) {
+    public UserBloc(final UserService userService,
+                    final RoleService roleService,
+                    final CategoryService categoryService,
+                    final UserCategoryService userCategoryService,
+                    final PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
         this.categoryService = categoryService;
@@ -85,5 +89,12 @@ public class UserBloc {
         } else {
             throw new ValidatorException("Incorrect old password", "oldPassword");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserRes> fetchAllUsers() {
+        log.info("Fetch all users");
+
+        return UserMapper.INSTANCE.toUserListRes(userService.getAll());
     }
 }
