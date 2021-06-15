@@ -208,6 +208,11 @@ public class CrawlerBloc {
         content = content.replace("T.Ư", "trung ương");
         content = content.replace("TW", "trung ương");
         content = content.replace("T.W", "trung ương");
+        content = content.replace("CoV-2", "covi2");
+        content = content.replace("/kg", "trên 1 kilogram");
+        content = content.replace("kg", "kilogram");
+        content = content.replaceAll("(\\d),(\\d)", "$1 phẩy $2");
+        content = content.replaceAll("(\\d)\\.(\\d)", "$1$2");
 
         return content;
     }
